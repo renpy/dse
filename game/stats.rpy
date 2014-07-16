@@ -36,6 +36,7 @@ init -100 python:
             setattr(store, s.var, v)
 
 screen display_stats(name=True, bar=True, value=True, max=True):
+    $ dse_stat_length = len(__dse_stats)
     window:
         yalign 0.0
         xalign 0.5
@@ -45,8 +46,7 @@ screen display_stats(name=True, bar=True, value=True, max=True):
             xalign 0.5
             label "Statistics"
 
-            # how to use variable size grid? May need to set variables during init
-            grid 3 2:
+            grid 3 dse_stat_length:
                 xalign 0.5
                 yalign 0.5
                 spacing 5
