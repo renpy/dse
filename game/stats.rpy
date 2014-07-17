@@ -1,6 +1,8 @@
-#init:
-#    style stats_frame is frame:
-    
+# stats.rpy
+# Keeps track of and displays the stats for the DSE.
+#
+# To change styles, add a style block for the element you want
+# preceded by "dse_stats_"
 
 init -100 python:
 
@@ -35,9 +37,15 @@ init -100 python:
 
             setattr(store, s.var, v)
 
+# Here you can change the style of any elements in the Stats screen you want.
+# As an example, here is a style defined for the label text to make sure it is not bold.
+style dse_stats_label_text:
+    bold False
+
 screen display_stats(name=True, bar=True, value=True, max=True):
     $ dse_stat_length = len(__dse_stats)
     window:
+        style_group "dse_stats"        
         yalign 0.0
         xalign 0.5
 
