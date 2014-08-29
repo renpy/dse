@@ -44,6 +44,8 @@ init -1 python hide:
     ## customize the color scheme.
 
     theme.roundrect(
+        ## Theme: Roundrect
+        ## Color scheme: Basic Blue
 
         ## The color of an idle widget face.
         widget = "#003c78",
@@ -56,9 +58,9 @@ init -1 python hide:
 
         ## The color of the text in a selected widget. (For
         ## example, the current value of a preference.)
-        widget_selected = "#ffd080",
+        widget_selected = "#ffffc8",
 
-        ## The color of a disabled widget face. 
+        ## The color of a disabled widget face.
         disabled = "#404040",
 
         ## The color of disabled widget text.
@@ -70,10 +72,6 @@ init -1 python hide:
         ## The color of a frame containing widgets.
         frame = "#6496c8",
 
-        ## If this is True, the in-game window is rounded. If False,
-        ## the in-game window is square.
-        rounded_window = False,
-
         ## The background of the main menu. This can be a color
         ## beginning with '#', or an image filename. The latter
         ## should take up the full height and width of the screen.
@@ -84,9 +82,13 @@ init -1 python hide:
         ## should take up the full height and width of the screen.
         gm_root = "#dcebff",
 
+        ## If this is True, the in-game window is rounded. If False,
+        ## the in-game window is square.
+        rounded_window = False,
+
         ## And we're done with the theme. The theme will customize
         ## various styles, so if we want to change them, we should
-        ## do so below.            
+        ## do so below.
         )
 
     theme.outline_bars(

@@ -1,4 +1,7 @@
 # This file contains styles for the day planner.
+# Modify this file to change the alignment and placement of the day planner choices
+# You could also use this to use a different style for the day planner than you
+# are using for the rest of the game.
 
 init python:
 
@@ -14,7 +17,7 @@ init python:
     style.dp_hbox.box_spacing = 20
 
     # Center the choices.
-    style.dp_choices.xalign = 0.5
+    style.dp_choice.xalign = 0.5
 
     # Center the label of each choice.
     style.dp_label.xalign = 0.5
@@ -23,6 +26,7 @@ init python:
     # Make each choice button the same size, and centered.
     style.dp_choice_button.size_group = "dp_choice"
     style.dp_choice_button.xalign = 0.5
+    style.dp_choice_text.xalign = 0.5
 
     # Center the done button.
     style.dp_done_button.xalign = 0.5

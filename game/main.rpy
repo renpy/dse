@@ -10,6 +10,7 @@ init python:
     dp_period("Morning", "morning_act")
     dp_choice("Attend Class", "class")
     dp_choice("Cut Class", "cut")
+    dp_choice("Fly to the Moon", "fly", enable="False")
 
     dp_period("Afternoon", "afternoon_act")
     dp_choice("Study", "study")
@@ -73,7 +74,7 @@ label day:
     # Now, we call the day planner, which may set the act variables
     # to new values. We call it with a list of periods that we want
     # to compute the values for.
-    call day_planner(["Morning", "Afternoon", "Evening"])
+    call screen day_planner(["Morning", "Afternoon", "Evening"])
 
     
     # We process each of the three periods of the day, in turn.
