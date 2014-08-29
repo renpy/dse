@@ -10,7 +10,7 @@ init python:
     dp_period("Morning", "morning_act")
     dp_choice("Attend Class", "class")
     dp_choice("Cut Class", "cut")
-    dp_choice("Fly to the Moon", "fly", enable="False")
+    dp_choice("Fly to the Moon", "fly", show="strength >= 100 and intelligence >= 100")
 
     dp_period("Afternoon", "afternoon_act")
     dp_choice("Study", "study")
@@ -70,6 +70,8 @@ label day:
     $ morning_act = None
     $ afternoon_act = None
     $ evening_act = None
+    $ narrator("What should I do today?", interact=False)
+    $ normalize_stats()
 
     # Now, we call the day planner, which may set the act variables
     # to new values. We call it with a list of periods that we want

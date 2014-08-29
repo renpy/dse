@@ -68,116 +68,45 @@ init -100 python:
 screen day_planner(periods):
     # indicate to Ren'Py engine that this is a choice point
     $ renpy.choice_for_skipping()
-    frame:
-        style_group "dp"        
-        vbox:
-            text "Day Planner" yalign 0.0 xalign 0.5
-            hbox:
-                for p in periods:
-                    vbox:
-                        label p
-                        if p not in __periods:
-                            $ raise Exception("Period %r was never defined." % p)
-                        $ this_period = __periods[p]
-                        $ default_value = getattr(store, this_period.var)
-                        $ valid_choice = False
+    window:
+        use display_stats(True, True, True, True)
+        frame:
+            style_group "dp"        
+            vbox:
+                text "Day Planner" yalign 0.0 xalign 0.5
+                hbox:
+                    $ can_continue = True
+                    for p in periods:
                         vbox:
-                            style_group "dp_choice"
-                            for name, curr_val, enable, should_show in this_period.acts:
-                                $ show_this = eval(should_show)
-                                $ enable = eval(enable)
+                            label p
+                            if p not in __periods:
+                                $ raise Exception("Period %r was never defined." % p)
+                            $ this_period = __periods[p]
+                            $ selected_choice = getattr(store, this_period.var)
 
-                                $ selected = (default_value == curr_val)
-                        
-                                if show_this:
-                                    #TODO: how to have a default? default selected
-                                    #TODO: how to disable a button?
-                                    textbutton name action SetVariable(this_period.var, curr_val)
-            
-                                if show_this and enable and selected:
-                                    $ valid_choice = True
+                            $ valid_choice = False
+                            vbox:
+                                style_group "dp_choice"
+                                for name, curr_val, enable, should_show in this_period.acts:
+                                    $ show_this = eval(should_show)
+                                    $ enable = eval(enable)
 
-                            if not valid_choice:
-                                $ can_continue = False
-                                    
-            button:
-                style "dp_done_button"
-                xalign 1.0
-                yalign 1.0
-                text dp_done_title
-                action Return()
+                                    $ selected = (selected_choice == curr_val)
                             
-
-
-# TODO: Remove this old code
-
-#label day_planner(periods):
-
-#    python hide:
-#        renpy.choice_for_skipping()
-    
-#label day_planner_repeat:
-
-#    if renpy.has_label("dp_callback"):
-#        call dp_callback
-    
-#    python hide:
-    
-#        ui.window(style=style.dp_frame)
-#        ui.vbox(style=style.dp_vbox)
-#        ui.hbox(style=style.dp_hbox)
-
-#        can_continue = True
-
-#        for p in periods:
-
-#            if p not in __periods:
-#                raise Exception("Period %r was never defined." % p)
-
-#            ui.window(style=style.dp_choices)
-#            ui.vbox(style=style.dp_choices_vbox)
-            
-#            p = __periods[p]
-#            v = getattr(store, p.var)
-
-#            layout.label(p.name, "dp")
-
-#            valid_choice = False
-            
-#            for name, value, enable, show in p.acts:
-#                show = eval(show)
-#                enable = eval(enable)
-
-#                selected = (v == value)
+                                    if show_this:
+                                        if enable:
+                                            textbutton name action SetField(store, this_period.var, curr_val)
+                                        else:
+                                            textbutton name
                 
-#                if show:
-#                    layout.button(
-#                        name, 
-#                        "dp_choice",
-#                        clicked=__set(p.var, value),
-#                        selected=selected,
-#                        enabled=enable,
-#                        )
+                                    if show_this and enable and selected:
+                                        $ valid_choice = True
 
-#                if show and enable and selected:
-#                    valid_choice = True
+                                if not valid_choice:
+                                    $ can_continue = False
+                                        
+                if (can_continue):
+                    textbutton dp_done_title style "dp_done_button" action Return()
+                else:
+                    textbutton dp_done_title style "dp_done_button"
 
-#            if not valid_choice:
-#                can_continue = False
-
-#            ui.close()
-                    
-#        ui.close() # hbox.
-
-#        layout.button(
-#            dp_done_title,
-#            "dp_done",
-#            clicked=ui.returns(False),
-#            enabled=can_continue)
-
-#        ui.close() # vbox
-
-#    if ui.interact():
-#        jump day_planner_repeat
-#    else:
-#        return

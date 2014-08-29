@@ -19,6 +19,7 @@ init:
     $ event("class_bad", "act == 'class'", priority=210)
     $ event("cut1", "act == 'cut'", event.choose_one('cut'), priority=200)
     $ event("cut2", "act == 'cut'", event.choose_one('cut'), priority=200)
+    $ event("fly", "act == 'fly'", event.solo(), priority=200)
     $ event("study", "act == 'study'", event.solo(), priority=200)
     $ event("hang", "act == 'hang'", event.solo(), priority=200)
     $ event("exercise", "act == 'exercise'", event.solo(), priority=200)    
@@ -55,6 +56,12 @@ label cut2:
 
     "I cut class, and spend the morning playing computer games."
 
+    return
+
+label fly:
+    
+    "I dream that I am flying to the moon, where I meet up with two girls..."
+    "I wake up too late to go to class."
     return
 
 label study:
