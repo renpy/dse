@@ -2,7 +2,7 @@
 # customize it for your program... But remember what you do, so you
 # can integrate with a new version of DSE when it comes out.
 
-# Set up a default theme.
+# Set up a default schedule.
 init python:
     register_stat("Strength", "strength", 10, 100)
     register_stat("Intelligence", "intelligence", 10, 100)
@@ -67,7 +67,7 @@ label day:
     # day planner. In a more complicated game, we would probably
     # want to add and remove choices from the dp_ variables
     # (especially dp_period_acts) to reflect the choices the
-    # user has available to him.
+    # user has available.
 
     $ morning_act = None
     $ afternoon_act = None

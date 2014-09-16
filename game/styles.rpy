@@ -1,7 +1,5 @@
 # This file contains styles for the day planner.
 # Modify this file to change the alignment and placement of the day planner choices
-# You could also use this to use a different style for the day planner than you
-# are using for the rest of the game.
 
 init python:
 

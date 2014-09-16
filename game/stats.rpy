@@ -2,7 +2,7 @@
 # Keeps track of and displays the stats for the DSE.
 #
 # To change styles, add a style block for the element you want
-# preceded by "dse_stats_"
+# preceded by "dse_stats_" down below
 
 init -100 python:
 
