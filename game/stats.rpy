@@ -21,7 +21,7 @@ init -100 python:
             setattr(store, s.var, s.default)
 
     config.start_callbacks.append(__init_stats)
-            
+    
     def register_stat(name, var, default, max):
         __dse_stats.append(__Stat(name, var, default, max))
 
@@ -36,6 +36,11 @@ init -100 python:
                 v = 0
 
             setattr(store, s.var, v)
+
+    # Whenever a python statement is executed, we will ensure our stats
+    # stay within range.
+    config.python_callbacks.append(normalize_stats)
+                        
 
 # Here you can change the style of any elements in the Stats screen you want.
 # As an example, here is a style defined for the label text to make sure it is not bold.

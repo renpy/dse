@@ -10,6 +10,8 @@ init python:
     dp_period("Morning", "morning_act")
     dp_choice("Attend Class", "class")
     dp_choice("Cut Class", "cut")
+    
+    # This is an example of an event that should only show up under special circumstances
     dp_choice("Fly to the Moon", "fly", show="strength >= 100 and intelligence >= 100")
 
     dp_period("Afternoon", "afternoon_act")
@@ -71,7 +73,6 @@ label day:
     $ afternoon_act = None
     $ evening_act = None
     $ narrator("What should I do today?", interact=False)
-    $ normalize_stats()
 
     # Now, we call the day planner, which may set the act variables
     # to new values. We call it with a list of periods that we want
@@ -89,9 +90,6 @@ label morning:
     # picked up by the expression in the various events defined below. 
     $ period = "morning"
     $ act = morning_act
-
-    # Ensure that the stats are in the proper range.
-    $ normalize_stats()
     
     # Execute the events for the morning.
     call events_run_period
@@ -114,8 +112,6 @@ label afternoon:
     $ period = "afternoon"
     $ act = afternoon_act
 
-    $ normalize_stats()
-    
     call events_run_period
 
 
@@ -129,8 +125,6 @@ label evening:
 
     $ period = "evening"
     $ act = evening_act
-
-    $ normalize_stats()
     
     call events_run_period
 
@@ -159,7 +153,6 @@ label dp_callback:
     # Add in a line of dialogue asking the question that's on
     # everybody's mind.
     $ narrator("What should I do today?", interact=False)
-    $ normalize_stats()
-
+    
     return
 
