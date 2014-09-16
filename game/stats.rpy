@@ -44,7 +44,7 @@ style dse_stats_label_text:
 
 screen display_stats(name=True, bar=True, value=True, max=True):
     $ dse_stat_length = len(__dse_stats)
-    window:
+    frame:
         style_group "dse_stats"        
         yalign 0.0
         xalign 0.5
@@ -52,7 +52,7 @@ screen display_stats(name=True, bar=True, value=True, max=True):
         vbox:
             yalign 0.0
             xalign 0.5
-            label "Statistics"
+            label "Statistics" xalign 0.5
 
             grid 3 dse_stat_length:
                 xalign 0.5

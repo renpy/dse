@@ -70,43 +70,46 @@ screen day_planner(periods):
     $ renpy.choice_for_skipping()
     window:
         use display_stats(True, True, True, True)
-        frame:
-            style_group "dp"        
-            vbox:
-                text "Day Planner" yalign 0.0 xalign 0.5
-                hbox:
-                    $ can_continue = True
-                    for p in periods:
+        use display_planner(periods)            
+            
+screen display_planner(periods):            
+    frame:
+        style_group "dp"        
+        vbox:
+            text "Day Planner" yalign 0.0 xalign 0.5
+            hbox:
+                $ can_continue = True
+                for p in periods:
+                    vbox:
+                        label p
+                        if p not in __periods:
+                            $ raise Exception("Period %r was never defined." % p)
+                        $ this_period = __periods[p]
+                        $ selected_choice = getattr(store, this_period.var)
+
+                        $ valid_choice = False
                         vbox:
-                            label p
-                            if p not in __periods:
-                                $ raise Exception("Period %r was never defined." % p)
-                            $ this_period = __periods[p]
-                            $ selected_choice = getattr(store, this_period.var)
+                            style_group "dp_choice"
+                            for name, curr_val, enable, should_show in this_period.acts:
+                                $ show_this = eval(should_show)
+                                $ enable = eval(enable)
 
-                            $ valid_choice = False
-                            vbox:
-                                style_group "dp_choice"
-                                for name, curr_val, enable, should_show in this_period.acts:
-                                    $ show_this = eval(should_show)
-                                    $ enable = eval(enable)
+                                $ selected = (selected_choice == curr_val)
+                        
+                                if show_this:
+                                    if enable:
+                                        textbutton name action SetField(store, this_period.var, curr_val)
+                                    else:
+                                        textbutton name
+            
+                                if show_this and enable and selected:
+                                    $ valid_choice = True
 
-                                    $ selected = (selected_choice == curr_val)
-                            
-                                    if show_this:
-                                        if enable:
-                                            textbutton name action SetField(store, this_period.var, curr_val)
-                                        else:
-                                            textbutton name
-                
-                                    if show_this and enable and selected:
-                                        $ valid_choice = True
-
-                                if not valid_choice:
-                                    $ can_continue = False
-                                        
-                if (can_continue):
-                    textbutton dp_done_title style "dp_done_button" action Return()
-                else:
-                    textbutton dp_done_title style "dp_done_button"
+                            if not valid_choice:
+                                $ can_continue = False
+                                    
+            if (can_continue):
+                textbutton dp_done_title style "dp_done_button" action Return()
+            else:
+                textbutton dp_done_title style "dp_done_button"
 

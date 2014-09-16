@@ -153,15 +153,13 @@ label night:
     jump day
          
 
-# This is a callback that is called by the day planner. One of the
-# uses of this is to show the statistics to the user.
+# This is a callback that is called by the day planner. 
 label dp_callback:
 
     # Add in a line of dialogue asking the question that's on
     # everybody's mind.
     $ narrator("What should I do today?", interact=False)
     $ normalize_stats()
-    show screen display_stats(True, True, True, True)
 
     return
 
