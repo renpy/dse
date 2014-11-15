@@ -3,28 +3,24 @@
 # change many of the variables or styles defined here from
 # other files.
 
+# The frame containing the day planner.
+style dp_frame is frame
+ 
+# The frame and vbox containing a single choice. 
+style dp_choice:
+    xalign 0.5
+
+style dp_choice is default:
+    xalign 0.5
+    
+# Buttons    
+style dp_choice_button is button
+style dp_choice_button_text is button_text
+    
+# Labels    
+style dp_label is label
 
 init -100 python:
-    # The frame containing the day planner.
-    style.dp_frame = Style(style.frame)
-    style.dp_vbox = Style(style.vbox)
-    style.dp_hbox = Style(style.hbox)
-
-    # The frame and vbox containing a single choice.
-    style.dp_choice = Style(style.default)
-    style.dp_choice_vbox = Style(style.vbox) 
-    style.dp_choice.xalign = 0.5
-    
-    # Buttons.
-    style.dp_choice_button = Style(style.button)
-    style.dp_choice_button_text = Style(style.button_text)
-
-    style.dp_done_button = Style(style.button)
-    style.dp_done_button_text = Style(style.button_text)
-
-    # Labels.
-    style.dp_label = Style(style.label)
-    style.dp_label_text = Style(style.label_text)
 
     # The title of the done button.
     dp_done_title = "Done Planning"
