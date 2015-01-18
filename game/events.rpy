@@ -25,6 +25,81 @@ init:
     $ event("exercise", "act == 'exercise'", event.solo(), priority=200)    
     $ event("play", "act == 'play'", event.solo(), priority=200)
 
+
+    # This is an introduction event, that runs once when we first go
+    # to class. 
+    $ event("introduction", "act == 'class'", event.once(), event.only())
+
+    # Here are Sporty Girl's events that happen during the exercise act.
+    $ event("catchme", "act == 'exercise'",
+            event.depends('introduction'), event.once())
+    $ event("cantcatchme", "act == 'exercise'",
+            event.depends('catchme'), event.solo(), priority=190)
+    $ event("caughtme", "act == 'exercise' and strength >= 50",
+            event.depends('catchme'), event.once())
+    $ event("together", "act == 'exercise' and strength >= 50",
+            event.depends('caughtme'), event.solo(), priority=180)
+    $ event("apart", "act == 'exercise' and strength < 50",
+            event.depends('caughtme'), event.solo(), priority=180)
+    $ event("pothole", "act == 'exercise' and strength >= 100",
+            event.depends('caughtme'), event.once())
+    $ event("dontsee", "act == 'exercise'",
+            event.depends('pothole'), event.solo(), priority=170)
+    $ event("sg_confess", "act == 'class'",
+            event.depends('dontsee'), event.once())
+
+
+    # These are the events with glasses girl.
+    #
+    # The glasses girl is studying in the library, but we do not
+    # talk to her.
+    $ event("gg_studying",
+            # This takes place when the action is 'study'.
+            "act == 'study'",
+            # This will only take place if no higher-priority
+            # event will occur.
+            event.solo(),
+            # This takes place at least one day after seeing the
+            # introduction event.
+            event.depends("introduction"),
+            # This takes priority over the study event.
+            priority=190)
+
+    # She asks to borrow our pen. 
+    $ event("borrow_pen",
+            # This takes place when we go to study, and we have an int
+            # >= 50. 
+            "act == 'study' and intelligence >= 50",
+            # It runs only once.
+            event.once(),
+            # It requires the introduction event to have run at least
+            # one day before.
+            event.depends("introduction"))
+
+    # After the pen, she smiles when she sees us.
+    $ event("gg_smiling", "act == 'study'",
+            event.solo(), event.depends("borrow_pen"),
+            priority = 180)
+
+    # The bookslide.
+    $ event("bookslide", "act == 'study' and intelligence == 100",
+            event.once(), event.depends("borrow_pen"))
+
+    # She makes us cookies.
+    $ event("cookies", "act == 'study'",
+            event.once(), event.depends("bookslide"))
+
+    # Her solo ending.
+    $ event("gg_confess", "act == 'class'",
+            event.once(), event.depends("cookies"))
+
+    # Ending with both girls only happens if we have seen both of their final events
+    # This needs to be higher-priority than either girl's ending.    
+    $ event('both_confess', 'act == "class"',
+            event.depends("dontsee"), event.depends("cookies"),
+            event.once(), priority = 50)
+     
+
 label class:
 
     "I make it to class just in time, and proceed to listen to the
@@ -99,12 +174,6 @@ label play:
 # Below here are special events that are triggered when certain
 # conditions are true. 
 
-# This is an introduction event, that runs once when we first go
-# to class. 
-
-init:
-    $ event("introduction", "act == 'class'", event.once(), event.only())
-
 label introduction:
 
     "I run to school, and make it to my seat just as the bell
@@ -158,60 +227,6 @@ label introduction:
 
     return
 
-
-# These are the events with glasses girl.
-
-init:
-    # The glasses girl is studying in the library, but we do not
-    # talk to her.
-    #
-    # 
-    $ event("gg_studying",
-
-            # This takes place when the action is 'study'.
-            "act == 'study'",
-
-            # This will only take place if no higher-priority
-            # event will occur.
-            event.solo(),
-
-            # This takes place at least one day after seeing the
-            # introduction event.
-            event.depends("introduction"),
-
-            # This takes priority over the study event.
-            priority=190)
-
-    # She asks to borrow our pen. 
-    $ event("borrow_pen",
-
-            # This takes place when we go to study, and we have an int
-            # >= 50. 
-            "act == 'study' and intelligence >= 50",
-
-            # It runs only once.
-            event.once(),
-
-            # It requires the introduction event to have run at least
-            # one day before.
-            event.depends("introduction"))
-
-    # After the pen, she smiles when she sees us.
-    $ event("gg_smiling", "act == 'study'",
-            event.solo(), event.depends("borrow_pen"),
-            priority = 180)
-
-    # The bookslide.
-    $ event("bookslide", "act == 'study' and intelligence == 100",
-            event.once(), event.depends("borrow_pen"))
-
-    # She makes us cookies.
-    $ event("cookies", "act == 'study'",
-            event.once(), event.depends("bookslide"))
-
-    # Her solo ending.
-    $ event("gg_confess", "act == 'class'",
-            event.once(), event.depends("cookies"))
 
     
 label gg_studying:
@@ -415,33 +430,6 @@ label gg_confess:
     ".:. Ending 1."
 
     $ renpy.full_restart()
-
-
-init:
-
-    $ event("catchme", "act == 'exercise'",
-            event.depends('introduction'), event.once())
-
-    $ event("cantcatchme", "act == 'exercise'",
-            event.depends('catchme'), event.solo(), priority=190)
-
-    $ event("caughtme", "act == 'exercise' and strength >= 50",
-            event.depends('catchme'), event.once())
-
-    $ event("together", "act == 'exercise' and strength >= 50",
-            event.depends('caughtme'), event.solo(), priority=180)
-
-    $ event("apart", "act == 'exercise' and strength < 50",
-            event.depends('caughtme'), event.solo(), priority=180)
-
-    $ event("pothole", "act == 'exercise' and strength >= 100",
-            event.depends('caughtme'), event.once())
-
-    $ event("dontsee", "act == 'exercise'",
-            event.depends('pothole'), event.solo(), priority=170)
-    
-    $ event("sg_confess", "act == 'class'",
-            event.depends('dontsee'), event.once())
 
 
 label catchme:
@@ -696,13 +684,6 @@ label sg_confess:
     $ renpy.full_restart()
 
 
-init:
-
-    # This needs to be higher-priority than either girl's ending.    
-    $ event('both_confess', 'act == "class"',
-            event.depends("dontsee"), event.depends("cookies"),
-            event.once(), priority = 50)
-     
 label both_confess:
 
     "I once again barely make it to class on time."
