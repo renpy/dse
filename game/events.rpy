@@ -11,10 +11,11 @@ init:
     $ bg = Character('Both Girls')
     $ narrator = Character(' ')
     
-# First up, we define some simple events for the various actions, that
-# are run only if no higher-priority event is about to occur.
 
 init:
+    # First up, we define some simple events for the various actions, that
+    # are run only if no higher-priority event is about to occur.
+    
     $ event("class", "act == 'class'", event.only(), priority=200)
     $ event("class_bad", "act == 'class'", priority=210)
     $ event("cut1", "act == 'cut'", event.choose_one('cut'), priority=200)
@@ -29,25 +30,6 @@ init:
     # This is an introduction event, that runs once when we first go
     # to class. 
     $ event("introduction", "act == 'class'", event.once(), event.only())
-
-    # Here are Sporty Girl's events that happen during the exercise act.
-    $ event("catchme", "act == 'exercise'",
-            event.depends('introduction'), event.once())
-    $ event("cantcatchme", "act == 'exercise'",
-            event.depends('catchme'), event.solo(), priority=190)
-    $ event("caughtme", "act == 'exercise' and strength >= 50",
-            event.depends('catchme'), event.once())
-    $ event("together", "act == 'exercise' and strength >= 50",
-            event.depends('caughtme'), event.solo(), priority=180)
-    $ event("apart", "act == 'exercise' and strength < 50",
-            event.depends('caughtme'), event.solo(), priority=180)
-    $ event("pothole", "act == 'exercise' and strength >= 100",
-            event.depends('caughtme'), event.once())
-    $ event("dontsee", "act == 'exercise'",
-            event.depends('pothole'), event.solo(), priority=170)
-    $ event("sg_confess", "act == 'class'",
-            event.depends('dontsee'), event.once())
-
 
     # These are the events with glasses girl.
     #
@@ -92,6 +74,24 @@ init:
     # Her solo ending.
     $ event("gg_confess", "act == 'class'",
             event.once(), event.depends("cookies"))
+    
+    # Here are Sporty Girl's events that happen during the exercise act.
+    $ event("catchme", "act == 'exercise'",
+            event.depends('introduction'), event.once())
+    $ event("cantcatchme", "act == 'exercise'",
+            event.depends('catchme'), event.solo(), priority=190)
+    $ event("caughtme", "act == 'exercise' and strength >= 50",
+            event.depends('catchme'), event.once())
+    $ event("together", "act == 'exercise' and strength >= 50",
+            event.depends('caughtme'), event.solo(), priority=180)
+    $ event("apart", "act == 'exercise' and strength < 50",
+            event.depends('caughtme'), event.solo(), priority=180)
+    $ event("pothole", "act == 'exercise' and strength >= 100",
+            event.depends('caughtme'), event.once())
+    $ event("dontsee", "act == 'exercise'",
+            event.depends('pothole'), event.solo(), priority=170)
+    $ event("sg_confess", "act == 'class'",
+            event.depends('dontsee'), event.once())    
 
     # Ending with both girls only happens if we have seen both of their final events
     # This needs to be higher-priority than either girl's ending.    
