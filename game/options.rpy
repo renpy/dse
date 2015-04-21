@@ -169,15 +169,15 @@ init -1 python hide:
 
     ## Set this to False if the game does not have any sound effects.
 
-    config.has_sound = True
+    config.has_sound = False
 
     ## Set this to False if the game does not have any music.
 
-    config.has_music = True
+    config.has_music = False
 
     ## Set this to False if the game does not have voicing.
 
-    config.has_voice = True
+    config.has_voice = False
 
     ## Sounds that are used when button and imagemaps are clicked.
 
