@@ -1,3 +1,12 @@
+# The Dating Sim Engine was written by PyTom, 
+# with updates added by Andrea Landaker.
+#
+# For support, see the Lemma Soft forums thread:
+# http://lemmasoft.renai.us/forums/viewtopic.php?f=51&t=31571
+#
+# It is released under the MIT License - see DSE-LICENSE.txt
+#
+#
 # This is the main program. This can be changed quite a bit to
 # customize it for your program... But remember what you do, so you
 # can integrate with a new version of DSE when it comes out.
