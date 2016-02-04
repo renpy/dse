@@ -2,6 +2,9 @@
 # Modify this file to change the alignment and placement of the day planner choices
 
 # Place the day planner.
+style dayplanner_window:
+    background None
+    
 style dp_frame:
     ypos 120
     yanchor 0.0

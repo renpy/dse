@@ -3,9 +3,7 @@
 # change many of the variables or styles defined here from
 # other files.
 
-# The frame containing the day planner.
-style dp_frame is frame
- 
+
 # The frame and vbox containing a single choice. 
 style dp_choice:
     xalign 0.5
@@ -62,10 +60,11 @@ init -100 python:
         
 # Our Day Planner displays the stats, and buttons for the user to choose what to do
 # during each period of time defined in "periods".
-screen day_planner(periods):
+screen day_planner(periods):  
     # indicate to Ren'Py engine that this is a choice point
     $ renpy.choice_for_skipping()
     window:
+        style "dayplanner_window"          
         use display_stats(True, True, True, True)
         use display_planner(periods)            
             
