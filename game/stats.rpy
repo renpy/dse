@@ -47,6 +47,11 @@ init -100 python:
 style dse_stats_label_text:
     bold False
 
+# Display the stats in a frame.
+# name -  display the stat's name
+# bar -   display a bar indicating the value of the stat
+# value - display the numerical value of the stat
+# max -   display the maximum value of the stat
 screen display_stats(name=True, bar=True, value=True, max=True):
     $ dse_stat_length = len(__dse_stats)
     frame:
@@ -59,7 +64,17 @@ screen display_stats(name=True, bar=True, value=True, max=True):
             xalign 0.5
             label "Statistics" xalign 0.5
 
-            grid 3 dse_stat_length:
+            # Depending on what the user chooses to display, calculate how many columns we need
+            $ num_columns = 0
+            if name:
+                $ num_columns+=1
+            if bar:
+                $ num_columns+=1
+            if value or max:
+                $ num_columns+=1
+                
+            # Make a grid with up to 3 columns and as many rows as there are stats.
+            grid num_columns dse_stat_length:
                 xalign 0.5
                 yalign 0.5
                 spacing 5
@@ -78,4 +93,4 @@ screen display_stats(name=True, bar=True, value=True, max=True):
                     elif value:
                         label ("%d" % (v,)) xalign 1.0
                     elif max:
-                        label ("%d" % (max,)) xalign 1.0
+                        label ("%d" % (s.max,)) xalign 1.0
