@@ -6,7 +6,7 @@ style dayplanner_window:
     background None
     
 style dp_frame:
-    ypos 120
+    ypos 150
     yanchor 0.0
     xalign 0.5
     
@@ -41,27 +41,3 @@ style dp_choice_text:
 # Center the done button.
 style dp_done_button:
     xalign 0.5
-
-# Put a margin on the stats frame.
-style stats_frame:
-    xmargin 10
-    ymargin 5
-    
-# Space between the label and the stats.
-style stats_vbox:
-    box_first_spacing 10
-    
-# Put blank space around each stat name, and right-justify.
-style stat_label:
-    xminimum 140
-    xalign 1.0
-    xmargin 5
-    
-# Put blank space around each stat value, and right-justify.
-style stat_value_label:
-    xminimum 100
-    xalign 1.0
-    
-# Center the stat bar vertically.
-style stat_bar:
-    yalign 0.5

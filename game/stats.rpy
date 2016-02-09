@@ -43,9 +43,29 @@ init -100 python:
                         
 
 # Here you can change the style of any elements in the Stats screen you want.
-# As an example, here is a style defined for the label text to make sure it is not bold.
-style dse_stats_label_text:
-    bold False
+# Put a margin on the stats frame.
+style dse_stats_frame:
+    xmargin 10
+    ymargin 5
+    
+# Space between the label and the stats.
+style dse_stats_vbox:
+    box_first_spacing 20
+    
+# Put blank space around each stat name, and right-justify.
+style dse_stats_label:
+    xminimum 140
+    xalign 1.0
+    xmargin 5
+    
+# Put blank space around each stat value, and right-justify.
+style dse_stats_value_label:
+    xminimum 100
+    xalign 1.0
+    
+# Center the stat bar vertically.
+style dse_stats_bar:
+    yalign 0.5
 
 # Display the stats in a frame.
 # name -  display the stat's name
