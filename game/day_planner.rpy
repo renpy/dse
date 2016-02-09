@@ -1,22 +1,9 @@
-# This contains code for the new day planner. You probably
-# don't want to change this file, but it might make sense to
-# change many of the variables or styles defined here from
-# other files.
+# This contains code for the day planner. You probably
+# don't want to change this file.
+#
+# If you want to change the appearance of the day planner,
+# look for the dp_ styles in styles.rpy
 
-
-# The frame and vbox containing a single choice. 
-style dp_choice:
-    xalign 0.5
-
-style dp_choice is default:
-    xalign 0.5
-    
-# Buttons    
-style dp_choice_button is button
-style dp_choice_button_text is button_text
-    
-# Labels    
-style dp_label is label
 
 init -100 python:
 
