@@ -302,7 +302,7 @@ label events_run_period:
 # and return control to the main program.
 label events_end_period:
 
-    $ skip_period = 1
+    $ skip_periods = 1
     return
 
 # If this is jumped to, it will end the current period and skip
@@ -310,7 +310,7 @@ label events_end_period:
 # takes up two time slots.
 label events_skip_period:
 
-    $ skip_period = 2
+    $ skip_periods = 2
     return
 
         
