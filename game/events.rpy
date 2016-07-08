@@ -343,6 +343,15 @@ label bookslide:
     "She agrees, and together we begin piling the books up into neat
      piles."
 
+    "I end up walking her home. She doesn't say much, but we both seem to enjoy quiet companionship."
+    
+    "She lives farther than I thought, though, and I end up not having time for anything else by the time I get home."
+    
+    "But it was definitely worth it."
+        
+    #This will end the current period and skip the next one.
+    jump events_skip_period
+
     return
 
 
@@ -612,6 +621,13 @@ label pothole:
      underneath her to make a seat."
 
     "I stand up, and start carrying her home."
+    
+    "She lives farther than I thought, though, and I end up not having time for anything else by the time I get home."
+    
+    "But it was definitely worth it."
+    
+    #This will end the current period and skip the next one.
+    jump events_skip_period
 
     return
 
