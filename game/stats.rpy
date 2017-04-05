@@ -4,17 +4,19 @@
 # To change styles, add a style block for the element you want
 # preceded by "dse_stats_" down below
 
+
 init -100 python:
 
     __dse_stats = [ ]
 
     class __Stat(object):
 
-        def __init__(self, name, var, default, max):
+        def __init__(self, name, var, default, max, hidden=False):
             self.name = name
             self.var = var
             self.default = default
             self.max = max
+            self.hidden = hidden
 
     def __init_stats():
         for s in __dse_stats:
@@ -22,8 +24,15 @@ init -100 python:
 
     config.start_callbacks.append(__init_stats)
     
-    def register_stat(name, var, default, max):
-        __dse_stats.append(__Stat(name, var, default, max))
+    # Call this function to add a stat to keep track of. 
+    # Arguments:
+    # Name: name of stat. Will be displayed in the Stats screen
+    # var: name of variable to use to keep track of stat.
+    # default: starting value for the stat
+    # max: maximum value for the stat
+    # hidden: Is this stat hidden from the user? Hidden stats will not be displayed in the stats screen.
+    def register_stat(name, var, default=0, max=100, hidden=False):
+        __dse_stats.append(__Stat(name, var, default, max, hidden))
 
     def normalize_stats():
         for s in __dse_stats:
@@ -74,10 +83,17 @@ style dse_stats_bar:
 # max -   display the maximum value of the stat
 screen display_stats(name=True, bar=True, value=True, max=True):
     $ dse_stat_length = len(__dse_stats)
+    
+    #The number of rows is the number of stats that are not hidden
+    for s in __dse_stats:
+        if s.hidden:
+            $ dse_stat_length -= 1
+    
     frame:
         style_group "dse_stats"        
         yalign 0.0
         xalign 0.5
+
 
         vbox:
             yalign 0.0
@@ -92,7 +108,7 @@ screen display_stats(name=True, bar=True, value=True, max=True):
                 $ num_columns+=1
             if value or max:
                 $ num_columns+=1
-                
+                        
             # Make a grid with up to 3 columns and as many rows as there are stats.
             grid num_columns dse_stat_length:
                 xalign 0.5
@@ -100,17 +116,21 @@ screen display_stats(name=True, bar=True, value=True, max=True):
                 spacing 5
                 
                 for s in __dse_stats:
-                    $ v = getattr(store, s.var)
-
-                    if name:
-                        label s.name
-                    
-                    if bar:
-                        bar value v range s.max xmaximum 150 xalign 0.0
+                    #Skip if the stat is a hidden stat
+                    if (not s.hidden):
+                        $ v = getattr(store, s.var)
+    
+                            
+                        if name:
+                            label s.name
                         
-                    if value and max:
-                        label ("%d/%d" % (v, s.max)) xalign 1.0
-                    elif value:
-                        label ("%d" % (v,)) xalign 1.0
-                    elif max:
-                        label ("%d" % (s.max,)) xalign 1.0
+                        if bar:
+                            bar value v range s.max xmaximum 150 xalign 0.0
+                            
+                        if value and max:
+                            label ("%d/%d" % (v, s.max)) xalign 1.0
+                        elif value:
+                            label ("%d" % (v,)) xalign 1.0
+                        elif max:
+                            label ("%d" % (s.max,)) xalign 1.0
+                            

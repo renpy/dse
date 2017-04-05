@@ -1,5 +1,6 @@
 # The Dating Sim Engine was written by PyTom, 
-# with updates added by Andrea Landaker.
+# with updates added by Andrea Landaker (qirien),
+# and contributions by Edmund Wilfong (Pneumonica)
 #
 # For support, see the Lemma Soft forums thread:
 # http://lemmasoft.renai.us/forums/viewtopic.php?f=51&t=31571
@@ -15,6 +16,7 @@
 init python:
     register_stat("Strength", "strength", 10, 100)
     register_stat("Intelligence", "intelligence", 10, 100)
+    register_stat("Relaxation", "relaxation", hidden=True)
 
     dp_period("Morning", "morning_act")
     dp_choice("Attend Class", "class")

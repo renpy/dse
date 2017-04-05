@@ -7,7 +7,7 @@ style dayplanner_window:
     background None
     
 style dp_frame:
-    ypos 150
+    ypos 200
     yanchor 0.0
     xalign 0.5
     

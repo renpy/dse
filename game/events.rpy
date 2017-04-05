@@ -92,6 +92,9 @@ init:
             event.depends('pothole'), event.solo(), priority=170)
     $ event("sg_confess", "act == 'class'",
             event.depends('dontsee'), event.once())    
+    
+    # Relaxed ending with no girls happens if we max out our hidden relaxation stat.
+    $ event("relaxed_ending", "act=='hang' and relaxation >= 100", event.once())
 
     # Ending with both girls only happens if we have seen both of their final events
     # This needs to be higher-priority than either girl's ending.    
@@ -124,19 +127,22 @@ label cut1:
 
     "I cut class, and spend the morning goofing off instead."
     $ intelligence -= 10
+    $ relaxation += 10
 
     return
 
 label cut2:
 
     "I cut class, and spend the morning playing computer games."
-
+    $ relaxation += 10
+    
     return
 
 label fly:
     
     "I dream that I am flying to the moon, where I meet up with two girls..."
     "I wake up too late to go to class."
+    
     return
 
 label study:
@@ -145,13 +151,15 @@ label study:
      I should have been reading about in class."
 
     $ intelligence += 10
+    $ relaxation -= 10    
     return
 
 label hang:
 
     "I spend the afternoon hanging out with my friends, killing
      some time."
-    
+     
+    $ relaxation += 10    
     return
 
 label exercise:
@@ -160,6 +168,7 @@ label exercise:
      shape."
 
     $ strength += 10
+    $ relaxation -= 10    
     return
 
 label play:
@@ -168,6 +177,7 @@ label play:
      rolling small cities up into balls."
 
     $ strength -= 10
+    $ relaxation += 10    
     return
 
 
@@ -240,6 +250,7 @@ label gg_studying:
      book."
 
     $ intelligence += 10
+    $ relaxation -= 10    
 
     return
 
@@ -295,6 +306,7 @@ label gg_smiling:
      book."
 
     $ intelligence += 10
+    $ relaxation -= 10    
 
     return
 
@@ -489,6 +501,7 @@ label cantcatchme:
      I'll catch up to her."
 
     $ strength += 10
+    $ relaxation -= 10    
 
     return
 
@@ -533,6 +546,7 @@ label caughtme:
     "I nod a third time, and we take off, running side by side."
 
     $ strength += 10
+    $ relaxation -= 10    
 
     return
 
@@ -567,6 +581,7 @@ label apart:
      up with her."
 
     $ strength += 10
+    $ relaxation -= 10    
     return
 
 label pothole:
@@ -769,3 +784,13 @@ label both_confess:
 
     $ renpy.full_restart()
     
+label relaxed_ending:
+    "I had cut class and slacked off so much, that I was way behind."
+    "There was no way I was ever going to catch up."
+    "I kind of didn't care, though I had a sinking feeling I was missing out on something."
+    "But what could be better than hanging out and just doing whatever I wanted?"
+    "Nothing, right?"
+    "...right?"
+    
+    ".:. Ending 4."
+    $ renpy.full_restart()    
