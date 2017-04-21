@@ -50,8 +50,8 @@ init -100 python:
 screen day_planner(periods):  
     # indicate to Ren'Py engine that this is a choice point
     $ renpy.choice_for_skipping()
-    window:
-        style "dayplanner_window"          
+    frame:
+        style "dayplanner_frame"          
         use display_stats(name=True, bar=True, value=True, max=True)
         use display_planner(periods)            
             
@@ -72,7 +72,7 @@ screen display_planner(periods):
 
                         $ valid_choice = False
                         vbox:
-                            style_group "dp_choice"
+                            style "dp_choice_vbox"                                                    
                             for name, curr_val, enable, should_show in this_period.acts:
                                 $ show_this = eval(should_show)
                                 $ enable = eval(enable)
