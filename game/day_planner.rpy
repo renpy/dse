@@ -53,7 +53,7 @@ screen day_planner(periods):
     frame:
         style "dayplanner_frame"          
         use display_stats(name=True, bar=True, value=True, max=True)
-        use display_planner(periods)            
+        use display_planner(periods)
             
 screen display_planner(periods):            
     frame:

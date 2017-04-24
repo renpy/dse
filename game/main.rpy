@@ -84,6 +84,7 @@ label day:
     $ afternoon_act = None
     $ evening_act = None
     $ narrator("What should I do today?", interact=False)
+    
 
     # Now, we call the day planner, which may set the act variables
     # to new values. We call it with a list of periods that we want
@@ -157,13 +158,4 @@ label night:
     # on forever, until an event ends the game.
     jump day
          
-
-# This is a callback that is called by the day planner. 
-label dp_callback:
-
-    # Add in a line of dialogue asking the question that's on
-    # everybody's mind.
-    $ narrator("What should I do today?", interact=False)
-    
-    return
 
