@@ -45,8 +45,8 @@ init -100 python:
         
     __set = renpy.curry(__set_noncurried)
         
-# Our Day Planner displays the stats, and buttons for the user to choose what to do
-# during each period of time defined in "periods".
+# Our Day Planner displays the stats, and buttons for the user to choose
+# what to do during each period of time defined in "periods".
 screen day_planner(periods):  
     # indicate to Ren'Py engine that this is a choice point
     $ renpy.choice_for_skipping()
