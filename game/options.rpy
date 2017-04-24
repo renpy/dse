@@ -24,6 +24,7 @@ init -1 python hide:
     ## running in a window.
 
     config.window_title = u"DSE Demo Game"
+    config.version = "3.12"
 
     #########################################
     # Layouts
