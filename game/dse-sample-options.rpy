@@ -1,4 +1,11 @@
-﻿## This file contains options that can be changed to customize your game.
+﻿##
+# Options file for the sample DSE game. If you have your own options.rpy
+# file, you can delete this one.
+#
+######################################################################
+
+
+## This file contains options that can be changed to customize your game.
 ##
 ## Lines beginning with two '#' marks are comments, and you shouldn't uncomment
 ## them. Lines beginning with a single '#' mark are commented-out code, and you
