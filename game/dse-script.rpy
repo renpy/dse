@@ -84,13 +84,14 @@ label day:
     $ afternoon_act = None
     $ evening_act = None
     $ narrator("What should I do today?", interact=False)
+    window show
     
 
     # Now, we call the day planner, which may set the act variables
     # to new values. We call it with a list of periods that we want
     # to compute the values for.
     call screen day_planner(["Morning", "Afternoon", "Evening"])
-
+    window auto
     
     # We process each of the three periods of the day, in turn.
 label morning:

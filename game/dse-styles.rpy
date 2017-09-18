@@ -1,4 +1,4 @@
-# This file contains styles for the day planner.
+# This file contains styles for the day planner and stats screen.
 # Modify this file to change the alignment and placement of the day planner choices,
 # as well as other font and appearance options.
 
@@ -47,3 +47,28 @@ style dp_choice_text:
 # Center the done button.
 style dp_done_button:
     xalign 0.5
+    
+# Here you can change the style of any elements in the Stats screen you want.
+# Put a margin on the stats frame.
+style dse_stats_frame:
+    xmargin 10
+    ymargin 5
+    
+# Space between the label and the stats.
+style dse_stats_vbox:
+    box_first_spacing 20
+    
+# Put blank space around each stat name, and right-justify.
+style dse_stats_label:
+    xminimum 140
+    xalign 1.0
+    xmargin 5
+    
+# Put blank space around each stat value, and right-justify.
+style dse_stats_value_label:
+    xminimum 100
+    xalign 1.0
+    
+# Center the stat bar vertically.
+style dse_stats_bar:
+    yalign 0.5

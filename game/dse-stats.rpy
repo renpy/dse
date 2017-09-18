@@ -1,8 +1,7 @@
 # stats.rpy
 # Keeps track of and displays the stats for the DSE.
 #
-# To change styles, add a style block for the element you want
-# preceded by "dse_stats_" down below
+# To change styles, look for the dse_stats_* blocks in styles.rpy
 
 
 init -100 python:
@@ -48,33 +47,7 @@ init -100 python:
 
     # Whenever a python statement is executed, we will ensure our stats
     # stay within range.
-    config.python_callbacks.append(normalize_stats)
-                        
-
-# Here you can change the style of any elements in the Stats screen you want.
-# Put a margin on the stats frame.
-style dse_stats_frame:
-    xmargin 10
-    ymargin 5
-    
-# Space between the label and the stats.
-style dse_stats_vbox:
-    box_first_spacing 20
-    
-# Put blank space around each stat name, and right-justify.
-style dse_stats_label:
-    xminimum 140
-    xalign 1.0
-    xmargin 5
-    
-# Put blank space around each stat value, and right-justify.
-style dse_stats_value_label:
-    xminimum 100
-    xalign 1.0
-    
-# Center the stat bar vertically.
-style dse_stats_bar:
-    yalign 0.5
+    config.python_callbacks.append(normalize_stats)                        
 
 # Display the stats in a frame.
 # name -  display the stat's name
