@@ -1,252 +1,201 @@
-﻿## This file contains some of the options that can be changed to customize
-## your Ren'Py game. It only contains the most common options... there
-## is quite a bit more customization you can do.
+﻿## This file contains options that can be changed to customize your game.
 ##
-## Lines beginning with two '#' marks are comments, and you shouldn't
-## uncomment them. Lines beginning with a single '#' mark are
-## commented-out code, and you may want to uncomment them when
-## appropriate.
+## Lines beginning with two '#' marks are comments, and you shouldn't uncomment
+## them. Lines beginning with a single '#' mark are commented-out code, and you
+## may want to uncomment them when appropriate.
 
-init -1 python hide:
 
-    ## Should we enable the use of developer tools? This should be
-    ## set to False before the game is released, so the user can't
-    ## cheat using developer tools.
+## Basics ######################################################################
 
-    config.developer = True
+## A human-readable name of the game. This is used to set the default window
+## title, and shows up in the interface and error reports.
+##
+## The _() surrounding the string marks it as eligible for translation.
 
-    ## These control the width and height of the screen.
+define config.name = _("Dating Sim Engine")
 
-    config.screen_width = 800
-    config.screen_height = 600
 
-    ## This controls the title of the window, when Ren'Py is
-    ## running in a window.
+## Determines if the title given above is shown on the main menu screen. Set
+## this to False to hide the title.
 
-    config.window_title = u"DSE Demo Game"
-    config.version = "3.12"
+define gui.show_name = True
 
-    #########################################
-    # Layouts
-    
-    ## This enables the use of an in-game menu that is made out of
-    ## buttons.
 
-    layout.button_menu()
+## The version of the game.
 
-    #########################################
-    # Themes
-    
-    ## We then want to call a theme function. themes.roundrect is
-    ## a theme that features the use of rounded rectangles. It's
-    ## the only theme we currently support.
+define config.version = "4.0"
+
+
+## Text that is placed on the game's about screen. To insert a blank line
+## between paragraphs, write \n\n.
+
+define gui.about = _("Ren'Py Dating Sim Engine\n\nBy renpytom, maintained by Andrea Landaker")
+
+
+## A short name for the game used for executables and directories in the built
+## distribution. This must be ASCII-only, and must not contain spaces, colons,
+## or semicolons.
+
+define build.name = "dse"
+
+
+## Sounds and music ############################################################
+
+## These three variables control which mixers are shown to the player by
+## default. Setting one of these to False will hide the appropriate mixer.
+
+define config.has_sound = True
+define config.has_music = True
+define config.has_voice = True
+
+
+## To allow the user to play a test sound on the sound or voice channel,
+## uncomment a line below and use it to set a sample sound to play.
+
+# define config.sample_sound = "sample-sound.ogg"
+# define config.sample_voice = "sample-voice.ogg"
+
+
+## Uncomment the following line to set an audio file that will be played while
+## the player is at the main menu. This file will continue playing into the
+## game, until it is stopped or another file is played.
+
+# define config.main_menu_music = "main-menu-theme.ogg"
+
+
+## Transitions #################################################################
+##
+## These variables set transitions that are used when certain events occur.
+## Each variable should be set to a transition, or None to indicate that no
+## transition should be used.
+
+## Entering or exiting the game menu.
+
+define config.enter_transition = dissolve
+define config.exit_transition = dissolve
+
+
+## A transition that is used after a game has been loaded.
+
+define config.after_load_transition = None
+
+
+## Used when entering the main menu after the game has ended.
+
+define config.end_game_transition = None
+
+
+## A variable to set the transition used when the game starts does not exist.
+## Instead, use a with statement after showing the initial scene.
+
+
+## Window management ###########################################################
+##
+## This controls when the dialogue window is displayed. If "show", it is always
+## displayed. If "hide", it is only displayed when dialogue is present. If
+## "auto", the window is hidden before scene statements and shown again once
+## dialogue is displayed.
+##
+## After the game has started, this can be changed with the "window show",
+## "window hide", and "window auto" statements.
+
+define config.window = "auto"
+
+
+## Transitions used to show and hide the dialogue window
+
+define config.window_show_transition = Dissolve(.2)
+define config.window_hide_transition = Dissolve(.2)
+
+
+## Preference defaults #########################################################
+
+## Controls the default text speed. The default, 0, is infinite, while any other
+## number is the number of characters per second to type out.
+
+default preferences.text_cps = 0
+
+
+## The default auto-forward delay. Larger numbers lead to longer waits, with 0
+## to 30 being the valid range.
+
+default preferences.afm_time = 15
+
+
+## Save directory ##############################################################
+##
+## Controls the platform-specific place Ren'Py will place the save files for
+## this game. The save files will be placed in:
+##
+## Windows: %APPDATA\RenPy\<config.save_directory>
+##
+## Macintosh: $HOME/Library/RenPy/<config.save_directory>
+##
+## Linux: $HOME/.renpy/<config.save_directory>
+##
+## This generally should not be changed, and if it is, should always be a
+## literal string, not an expression.
+
+define config.save_directory = "DSE4-1505751864"
+
+
+## Icon ########################################################################
+##
+## The icon displayed on the taskbar or dock.
+
+define config.window_icon = "gui/window_icon.png"
+
+
+## Build configuration #########################################################
+##
+## This section controls how Ren'Py turns your project into distribution files.
+
+init python:
+
+    ## The following functions take file patterns. File patterns are case-
+    ## insensitive, and matched against the path relative to the base directory,
+    ## with and without a leading /. If multiple patterns match, the first is
+    ## used.
     ##
-    ## The theme function takes a number of parameters that can
-    ## customize the color scheme.
+    ## In a pattern:
+    ##
+    ## / is the directory separator.
+    ##
+    ## * matches all characters, except the directory separator.
+    ##
+    ## ** matches all characters, including the directory separator.
+    ##
+    ## For example, "*.txt" matches txt files in the base directory, "game/
+    ## **.ogg" matches ogg files in the game directory or any of its
+    ## subdirectories, and "**.psd" matches psd files anywhere in the project.
 
-    theme.roundrect(
-        ## Theme: Roundrect
-        ## Color scheme: Basic Blue
+    ## Classify files as None to exclude them from the built distributions.
 
-        ## The color of an idle widget face.
-        widget = "#003c78",
+    build.classify('**~', None)
+    build.classify('**.bak', None)
+    build.classify('**/.**', None)
+    build.classify('**/#**', None)
+    build.classify('**/thumbs.db', None)
 
-        ## The color of a focused widget face.
-        widget_hover = "#0050a0",
+    ## To archive files, classify them as 'archive'.
 
-        ## The color of the text in a widget.
-        widget_text = "#c8ffff",
+    # build.classify('game/**.png', 'archive')
+    # build.classify('game/**.jpg', 'archive')
 
-        ## The color of the text in a selected widget. (For
-        ## example, the current value of a preference.)
-        widget_selected = "#ffffc8",
+    ## Files matching documentation patterns are duplicated in a mac app build,
+    ## so they appear in both the app and the zip file.
 
-        ## The color of a disabled widget face.
-        disabled = "#404040",
+    build.documentation('*.html')
+    build.documentation('*.txt')
 
-        ## The color of disabled widget text.
-        disabled_text = "#c8c8c8",
+## A Google Play license key is required to download expansion files and perform
+## in-app purchases. It can be found on the "Services & APIs" page of the Google
+## Play developer console.
 
-        ## The color of informational labels.
-        label = "#ffffff",
+# define build.google_play_key = "..."
 
-        ## The color of a frame containing widgets.
-        frame = "#6496c8",
 
-        ## The background of the main menu. This can be a color
-        ## beginning with '#', or an image filename. The latter
-        ## should take up the full height and width of the screen.
-        mm_root = "#dcebff", 
+## The username and project name associated with an itch.io project, separated
+## by a slash.
 
-        ## The background of the game menu. This can be a color
-        ## beginning with '#', or an image filename. The latter
-        ## should take up the full height and width of the screen.
-        gm_root = "#dcebff",
-
-        ## If this is True, the in-game window is rounded. If False,
-        ## the in-game window is square.
-        rounded_window = False,
-
-        ## And we're done with the theme. The theme will customize
-        ## various styles, so if we want to change them, we should
-        ## do so below.
-        )
-
-    theme.outline_bars(
-        inside="#fff",
-        idle="#003c78",
-        hover="#0050a0")
-
-    #########################################
-    ## These settings let you customize the window containing the
-    ## dialogue and narration, by replacing it with an image.
-
-    ## The background of the window. In a Frame, the two numbers
-    ## are the size of the left/right and top/bottom borders,
-    ## respectively.
-
-    # style.window.background = Frame("frame.png", 12, 12)
-
-    ## Margin is space surrounding the window, where the background
-    ## is not drawn.
-
-    # style.window.left_margin = 6
-    # style.window.right_margin = 6
-    # style.window.top_margin = 6
-    # style.window.bottom_margin = 6
-
-    ## Padding is space inside the window, where the background is
-    ## drawn.
-
-    # style.window.left_padding = 6
-    # style.window.right_padding = 6
-    # style.window.top_padding = 6
-    # style.window.bottom_padding = 6
-
-    ## This is the minimum height of the window, including the margins
-    ## and padding.
-
-    # style.window.yminimum = 250
-
-
-    #########################################
-    ## This lets you change the placement of the main menu.
-
-    ## The way placement works is that we find an anchor point
-    ## inside a displayable, and a position (pos) point on the
-    ## screen. We then place the displayable so the two points are
-    ## at the same place.
-
-    ## An anchor/pos can be given as an integer or a floating point
-    ## number. If an integer, the number is interpreted as a number
-    ## of pixels from the upper-left corner. If a floating point,
-    ## the number is interpreted as a fraction of the size of the
-    ## displayable or screen.
-
-    # style.mm_menu_frame.xpos = 0.5
-    # style.mm_menu_frame.xanchor = 0.5
-    # style.mm_menu_frame.ypos = 0.75
-    # style.mm_menu_frame.yanchor = 0.5
-
-
-    #########################################
-    ## These let you customize the default font used for text in Ren'Py.
-
-    ## The file containing the default font.
-
-    # style.default.font = "DejaVuSans.ttf"
-
-    ## The default size of text.
-
-    # style.default.size = 22
-
-    ## Note that these only change the size of some of the text. Other
-    ## buttons have their own styles.
-
-
-    #########################################
-    ## These settings let you change some of the sounds that are used by
-    ## Ren'Py.
-
-    ## Set this to False if the game does not have any sound effects.
-
-    config.has_sound = False
-
-    ## Set this to False if the game does not have any music.
-
-    config.has_music = False
-
-    ## Set this to False if the game does not have voicing.
-
-    config.has_voice = False
-
-    ## Sounds that are used when button and imagemaps are clicked.
-
-    # style.button.activate_sound = "click.wav"
-    # style.imagemap.activate_sound = "click.wav"
-
-    ## Sounds that are used when entering and exiting the game menu.
-
-    # config.enter_sound = "click.wav"
-    # config.exit_sound = "click.wav"
-
-    ## A sample sound that can be played to check the sound volume.
-
-    # config.sample_sound = "click.wav"
-
-    ## Music that is played while the user is at the main menu.
-
-    # config.main_menu_music = "main_menu_theme.ogg"
-
-
-    #########################################
-    ## Transitions.
-
-    ## Used when entering the game menu from the game.
-
-    config.enter_transition = None
-
-    ## Used when exiting the game menu to the game.
-
-    config.exit_transition = None
-
-    ## Used between screens of the game menu.
-
-    config.intra_transition = None
-
-    ## Used when entering the game menu from the main menu.
-
-    config.main_game_transition = None
-
-    ## Used when returning to the main menu from the game.
-
-    config.game_main_transition = None
-
-    ## Used when entering the main menu from the splashscreen.
-
-    config.end_splash_transition = None
-
-    ## Used when entering the main menu after the game has ended.
-
-    config.end_game_transition = None
-
-    ## Used when a game is loaded.
-
-    config.after_load_transition = None
-
-    
-    #########################################
-    ## Default values of Preferences.
-
-    ## Note: These options are only evaluated the first time a
-    ## game is run. To have them run a second time, delete
-    ## game/saves/persistent
-
-    ## Should we start in fullscreen mode?
-
-    config.default_fullscreen = False
-
-    ## The default text speed in characters per second. 0 is infinite.
-
-    config.default_text_cps = 0
-
+# define build.itch_project = "renpytom/test-project"
