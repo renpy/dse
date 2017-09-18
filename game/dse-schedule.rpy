@@ -8,9 +8,11 @@
 # It is released under the MIT License - see DSE-LICENSE.txt
 #
 #
-# This is the main program. This can be changed quite a bit to
-# customize it for your program... But remember what you do, so you
-# can integrate with a new version of DSE when it comes out.
+# This is the main part of the program, where you setup your schedule and
+# the options for the user. You can change the stats, periods, and choices
+# here; just make sure they match up with the events setup in
+# dse-events.rpy.  You can even have different time periods (months, instead
+# of times of day, for example).
 
 # Set up a default schedule.
 init python:
