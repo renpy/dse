@@ -35,15 +35,15 @@ init -100 python:
 
     def normalize_stats():
         for s in __dse_stats:
+            if hasattr(store, s.var):
+                v = getattr(store, s.var)
 
-            v = getattr(store, s.var)
+                if v > s.max:
+                    v = s.max
+                if v < 0:
+                    v = 0
 
-            if v > s.max:
-                v = s.max
-            if v < 0:
-                v = 0
-
-            setattr(store, s.var, v)
+                setattr(store, s.var, v)
 
     # Whenever a python statement is executed, we will ensure our stats
     # stay within range.
